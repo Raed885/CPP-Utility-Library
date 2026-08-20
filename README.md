@@ -1,6 +1,6 @@
 # C++ Utility Library
 
-A small, reusable C++ utility library built independently to practice reusable abstractions, function overloading, input-independent helpers, arrays, random generation, and date utilities.
+A small, reusable C++ utility library built independently to practice reusable abstractions, function overloading, arrays, random generation, and date utilities.
 
 > Educational project — the text transformation functions are a Caesar-shift demonstration, not real cryptography.
 
