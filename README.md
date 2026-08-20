@@ -1,106 +1,157 @@
-# Project — C++ Utility Library
+# C++ Utility Library
 
-## Description
+A reusable **C++ utility library** built to collect common helper functionality that can be reused across console applications and programming projects.
 
-The **Utility Library** is a reusable C++ helper library that collects common operations used by console applications and small programming projects. It provides random-value generation, key and word generation, array helpers, overloaded swap functions, simple text transformation, and tab formatting.
+> **Status:** Educational project
+>
+> The library focuses on reusable programming techniques and learning-oriented utilities. It is not intended to provide production-grade security or cryptographic functionality.
 
-The project includes the `MyUtilityLib` class, a companion `clsDate` class, and a small executable that demonstrates the available functions.
+## Overview
 
-## Project Objectives
+The project provides a collection of static utility functions for:
 
-The main objectives of this project are to:
+- Random number and character generation
+- Word and key generation
+- Array creation and manipulation
+- Array shuffling
+- Overloaded swap operations
+- Date-related utilities
+- Simple text transformation
+- Console formatting helpers
 
-- Build a reusable collection of everyday C++ helper functions.
-- Practice static utility methods and enumerated character categories.
-- Generate random numbers, characters, words, and formatted keys.
-- Work with arrays through filling, printing, swapping, and shuffling operations.
-- Reuse overloaded functions for multiple data types.
-- Separate general-purpose helpers from application-specific business logic.
+The project was built independently as a practical exercise in reusable C++ code and separating general-purpose utilities from application-specific logic.
 
-## System Overview
+## Features
 
-The library supports the following operations:
+### Random Generation
 
-- Seed the pseudo-random generator.
-- Generate random integers inside a range.
-- Generate lowercase, uppercase, special, digit, or mixed characters.
-- Generate words and structured keys.
-- Fill arrays with random or ordered values.
-- Print and shuffle arrays.
-- Swap integers, booleans, characters, strings, and dates.
-- Apply and reverse a simple character-shift transformation.
-- Generate tab indentation for formatted console output.
+Generate:
 
-The included executable demonstrates random values, generated keys, array shuffling, and helper methods in a console environment.
+- Random integers within a range
+- Lowercase characters
+- Uppercase characters
+- Digits
+- Special characters
+- Mixed characters
+- Random words
+- Structured keys
 
-## Architecture
+### Array Utilities
+
+- Fill arrays with random values
+- Fill arrays with ordered values
+- Print arrays
+- Shuffle array elements
+
+### Generic Helpers
+
+- Overloaded `Swap()` functions
+- Date swapping
+- Text transformation and reversal
+- Console tab formatting
+
+## Design
+
+The project currently uses a small, header-based structure:
 
 ```text
-Utility Library
-├── MyUtilityLib
-│   ├── Random number and character generation
-│   ├── Word and key generation
-│   ├── Array filling, printing, and shuffling
-│   ├── Overloaded swap functions
-│   ├── Text transformation helpers
-│   └── Console-formatting helpers
-├── clsDate
-│   └── Date-related utility support
-└── Demo Application
-    └── Utility Library.cpp
+CPP-Utility-Library/
+│
+├── MyUtilityLib.h        # Main reusable utility class
+├── clsDate.h             # Date-related support
+├── Utility Library.cpp   # Demonstration program
+├── Utility Library.sln   # Visual Studio solution
+├── Utility Library.vcxproj
+├── Utility Library.vcxproj.filters
+├── .gitignore
+└── README.md
 ```
 
-The library is implemented as a class of static methods. This makes the helpers directly callable from a program without requiring a library object for every operation.
+`MyUtilityLib` contains static helper methods so callers can use the utilities without creating a library object.
 
-## Technologies Used
-
-- **C++** with reusable header-based utilities.
-- **Pseudo-random generation** using the standard library facilities available in the project.
-- **Arrays and overloaded functions** for practical data manipulation.
-- **Visual Studio solution and project files** for compilation and testing.
-- **Console output** for demonstrations and generated results.
-
-## Features Implemented
-
-| Feature | Description | Practical use |
-| --- | --- | --- |
-| Random numbers | Generate integers between two limits. | Test data and simulations |
-| Random characters | Generate lowercase, uppercase, special, digit, or mixed characters. | Sample identifiers and strings |
-| Word generation | Build words with a selected character type and length. | Test values and demonstrations |
-| Key generation | Create segmented keys such as `ABCD-EFGH-IJKL-MNOP-1234`. | Sample codes and identifiers |
-| Array helpers | Fill, print, and shuffle integer arrays. | Algorithm practice |
-| Overloaded swaps | Swap several primitive types and dates. | Reusable data manipulation |
-| Text transformation | Apply and reverse a simple shift transformation. | Educational string processing |
-| Formatting helpers | Generate repeated tab characters. | Console layout |
-
-> The included text transformation is a learning example, not a secure encryption algorithm. It must not be used to protect passwords or sensitive information.
-
-## Example Usage
+## Example
 
 ```cpp
 #include "MyUtilityLib.h"
 
 MyUtilityLib::Srand();
 
-int value = MyUtilityLib::RandomNum(1, 10);
+int number = MyUtilityLib::RandomNum(1, 100);
 string key = MyUtilityLib::GenerateKey();
-string encoded = MyUtilityLib::Encryption("Demo");
-string original = MyUtilityLib::Decryption(encoded);
+
+cout << number << endl;
+cout << key << endl;
 ```
 
-## Key Takeaways
+## Example: Random Character Types
 
-A utility library reduces duplication by placing frequently reused operations behind clear method names. The project also demonstrates how enumerations can make a single character-generation function support several behaviors without requiring separate functions for every character category.
+```cpp
+MyUtilityLib::Srand();
 
-The overloaded swap methods show how the same conceptual operation can be adapted to different types. The array and random-generation examples provide a foundation for practicing algorithms, test-data generation, and console-based programming.
+char lower = MyUtilityLib::GetRandomCharacter(
+    MyUtilityLib::enCharType::SmallChar
+);
 
-## How to Run
+char upper = MyUtilityLib::GetRandomCharacter(
+    MyUtilityLib::enCharType::CapitalChar
+);
+```
 
-1. Open `Utility Library.sln` in Visual Studio on Windows.
-2. Build the solution using the available C++ configuration.
-3. Run the console application to view generated values and array operations.
-4. Include `MyUtilityLib.h` and `clsDate.h` when reusing the helpers in another project.
+## Technologies
 
-## Final Notes
+- C++
+- Object-oriented programming
+- Static utility methods
+- Arrays
+- Function overloading
+- Enumerations
+- Standard library facilities
+- Visual Studio
 
-This repository is an educational utility-library project. It focuses on reusable programming techniques and demonstrations rather than production-grade cryptography or security tooling.
+## Learning Goals
+
+This project was built to practice:
+
+- Designing reusable functions and classes
+- Reducing duplicated code
+- Function overloading
+- Enumerations for configurable behavior
+- Array manipulation
+- Random data generation
+- Separating reusable utilities from application-specific code
+
+## Important Note About Encryption
+
+The `Encryption()` and `Decryption()` functions implement a simple character-shift transformation for educational purposes only.
+
+They are **not encryption suitable for protecting passwords, credentials, or sensitive data** and should not be used as a security mechanism.
+
+## Running the Demo
+
+### Requirements
+
+- Windows
+- Visual Studio with C++ development tools
+
+### Steps
+
+1. Clone the repository.
+2. Open `Utility Library.sln` in Visual Studio.
+3. Build the solution.
+4. Run the console application to see the utilities in action.
+
+## Reusing the Library
+
+To use the utilities in another C++ project, include the required headers:
+
+```cpp
+#include "MyUtilityLib.h"
+#include "clsDate.h"
+```
+
+Then call the static utility methods directly through `MyUtilityLib`.
+
+## Author
+
+**Raed Basim Hillel**  
+[GitHub](https://github.com/Raed885)
