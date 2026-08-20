@@ -2,7 +2,9 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 #include <string>
+#include <utility>
 
 #include "clsDate.h"
 
@@ -49,7 +51,6 @@ public:
 
         case Mix:
         {
-            // Mix only selects from the four actual character categories.
             const auto randomType = static_cast<enCharType>(RandomNum(SmallChar, DigitChar));
             return GetRandomCharacter(randomType);
         }
@@ -158,8 +159,6 @@ public:
 
     static void ArrayAfterShuffle(int arr[], int arrLength)
     {
-        // Fisher-Yates shuffle: each position is swapped with a random
-        // position from the unshuffled portion of the array.
         for (int i = arrLength - 1; i > 0; --i)
         {
             const int randomIndex = RandomNum(0, i);
