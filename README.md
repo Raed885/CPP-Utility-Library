@@ -17,11 +17,11 @@ A small, reusable C++ utility library built independently to practice reusable a
 
 ```text
 CPP-Utility-Library/
-├── MyUtilityLib.h          # Reusable utility class
-├── clsDate.h               # Date support
-├── main.cpp                # Demonstration program
-├── UtilityLibrary.sln      # Visual Studio solution
-├── UtilityLibrary.vcxproj  # Visual Studio project
+├── MyUtilityLib.h
+├── clsDate.h
+├── main.cpp
+├── UtilityLibrary.sln
+├── UtilityLibrary.vcxproj
 ├── UtilityLibrary.vcxproj.filters
 ├── .gitignore
 └── README.md
@@ -47,18 +47,15 @@ std::cout << key << '\n';
 
 The library intentionally uses simple C++ constructs because the goal is to practice reusable components and clear interfaces. The current implementation uses raw arrays in several APIs to match the original learning objective.
 
-The shuffle implementation uses the Fisher-Yates approach rather than repeatedly selecting arbitrary pairs.
+The shuffle implementation uses the Fisher-Yates approach.
 
-## Important Security Note
+## Security Note
 
-`Encryption()` and `Decryption()` implement a Caesar shift by three characters. This is useful for demonstrating reversible transformations, but it provides no meaningful security and must not be used for passwords, authentication tokens, or sensitive data.
+`Encryption()` and `Decryption()` implement a Caesar shift by three characters. This demonstrates reversible transformation only; it provides no meaningful security and must not be used for passwords, tokens, or sensitive data.
 
 ## Build and Run
 
-Requirements:
-
-- Windows
-- Visual Studio with the C++ desktop development workload
+Requirements: Windows and Visual Studio with the C++ desktop development workload.
 
 1. Clone the repository.
 2. Open `UtilityLibrary.sln` in Visual Studio.
