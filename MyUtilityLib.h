@@ -1,221 +1,191 @@
-﻿#pragma once
-#include <iostream>
- #include "clsDate.h"
+#pragma once
+
+#include <cstdlib>
+#include <ctime>
 #include <string>
-#include <vector>
-#include <ctime>      // Include ctime for the time() function.
 
-using namespace std;
+#include "clsDate.h"
 
-class MyUtilityLib {
-
+class MyUtilityLib
+{
 public:
+    enum enCharType
+    {
+        SmallChar = 1,
+        CapitalChar = 2,
+        SpecialChar = 3,
+        DigitChar = 4,
+        Mix = 5
+    };
 
-	static	void Srand() {
-		srand((unsigned)time(NULL));
+    static void Srand()
+    {
+        std::srand(static_cast<unsigned>(std::time(nullptr)));
+    }
 
-	}
-	static	int RandomNum(int From, int To) {
+    static int RandomNum(int from, int to)
+    {
+        if (from > to)
+            std::swap(from, to);
 
-		int Randnum = rand() % (To - From + 1) + From;
+        return std::rand() % (to - from + 1) + from;
+    }
 
-		return Randnum;
-	}
+    static char GetRandomCharacter(enCharType charType)
+    {
+        switch (charType)
+        {
+        case SmallChar:
+            return static_cast<char>(RandomNum('a', 'z'));
 
-	enum enCharType {
+        case CapitalChar:
+            return static_cast<char>(RandomNum('A', 'Z'));
 
-		SmallChar = 1,
-		CapitalChar = 2,
-		SpecialChar = 3,
-		DigitChar = 4,
-		Mix = 5
-	};
+        case SpecialChar:
+            return static_cast<char>(RandomNum('!', '/'));
 
-	static	char GetRandomCharacter(enCharType CharType) {
+        case DigitChar:
+            return static_cast<char>(RandomNum('0', '9'));
 
-		switch (CharType) {
+        case Mix:
+        {
+            // Mix only selects from the four actual character categories.
+            const auto randomType = static_cast<enCharType>(RandomNum(SmallChar, DigitChar));
+            return GetRandomCharacter(randomType);
+        }
 
-		case enCharType::SmallChar: {
+        default:
+            return '\0';
+        }
+    }
 
-			return  (char)RandomNum(97, 122);
-			break;
-		}
-		case enCharType::CapitalChar: {
+    static std::string GenerateWord(enCharType charType, short length)
+    {
+        std::string word;
+        word.reserve(length);
 
-			return  (char)RandomNum(65, 90);
-			break;
-		}
-		case   enCharType::SpecialChar: {
-			return   (char)RandomNum(33, 47);
-			break;
-		}
-		case   enCharType::DigitChar: {
-			return   (char)RandomNum(48, 57);
-			break;
+        for (short i = 0; i < length; ++i)
+            word += GetRandomCharacter(charType);
 
-		case   enCharType::Mix: {
+        return word;
+    }
 
-			int RandomType = RandomNum(1, 5);
-			return GetRandomCharacter(static_cast<enCharType>(RandomType - 1));
-			break;
-		}
-		}
-									return '\0';
-		}
+    static std::string GenerateKey()
+    {
+        return GenerateWord(CapitalChar, 4) + "-" +
+               GenerateWord(CapitalChar, 4) + "-" +
+               GenerateWord(CapitalChar, 4) + "-" +
+               GenerateWord(CapitalChar, 4) + "-" +
+               GenerateWord(Mix, 4);
+    }
 
+    static void GenerateKeys(short numberOfKeys)
+    {
+        for (short i = 1; i <= numberOfKeys; ++i)
+            std::cout << "Key[" << i << "]: " << GenerateKey() << '\n';
+    }
 
-	};
+    static void PrintKeys(const std::string keyArray[], short numberOfKeys)
+    {
+        std::cout << "\nArray elements:\n";
 
-	static	string GenerateWord(enCharType CharType, short Length) {
+        for (short i = 0; i < numberOfKeys; ++i)
+            std::cout << "Array[" << i << "]: " << keyArray[i] << '\n';
+    }
 
-		string Word;
+    static void FillArrayWithRandomNums(int arr[], int arrLength, int from, int to)
+    {
+        for (int i = 0; i < arrLength; ++i)
+            arr[i] = RandomNum(from, to);
+    }
 
-		for (int i = 1; i <= Length; i++) {
+    static void PrintRandomArray(const int arr[], int arrLength)
+    {
+        std::cout << "Array Elements: ";
 
-			Word = Word + GetRandomCharacter(CharType);
-		}
-		return Word;
-	}
+        for (int i = 0; i < arrLength; ++i)
+            std::cout << arr[i] << ' ';
 
-	static	string GenerateKey() {
+        std::cout << '\n';
+    }
 
-		string Key = "";
+    static void FillArrayWithOrderedNumbers(int arr[], int arrLength)
+    {
+        for (int i = 0; i < arrLength; ++i)
+            arr[i] = i + 1;
+    }
 
-		Key = GenerateWord(enCharType::CapitalChar, 4) + "-";
-		Key = Key + GenerateWord(enCharType::CapitalChar, 4) + "-";
-		Key = Key + GenerateWord(enCharType::CapitalChar, 4) + "-";
-		Key = Key + GenerateWord(enCharType::CapitalChar, 4) + "-";
-		Key = Key + GenerateWord(enCharType::Mix, 4);
+    static void PrintArray(const int arr[], int arrLength)
+    {
+        for (int i = 0; i < arrLength; ++i)
+            std::cout << arr[i] << ' ';
 
-		return Key;
-	}
+        std::cout << '\n';
+    }
 
-	static	void GenerateKeys(short NumofKey) {
+    static void Swap(int& a, int& b)
+    {
+        const int temp = a;
+        a = b;
+        b = temp;
+    }
 
-		for (int i = 1; i <= NumofKey; i++) {
+    static void Swap(bool& a, bool& b)
+    {
+        const bool temp = a;
+        a = b;
+        b = temp;
+    }
 
-			cout << "Key[" << i << "]:";
-			cout << GenerateKey() << endl;
-		}
-	}
+    static void Swap(char& a, char& b)
+    {
+        const char temp = a;
+        a = b;
+        b = temp;
+    }
 
-	static	void PrintKeys(string KeyArr[], short NumofKey) {
+    static void Swap(std::string& a, std::string& b)
+    {
+        const std::string temp = a;
+        a = b;
+        b = temp;
+    }
 
-		cout << "\nArray elements:\n";
+    static void Swap(clsDate& a, clsDate& b)
+    {
+        clsDate::SwapDates(a, b);
+    }
 
-		for (int i = 0; i <= NumofKey; i++) {
+    static void ArrayAfterShuffle(int arr[], int arrLength)
+    {
+        // Fisher-Yates shuffle: each position is swapped with a random
+        // position from the unshuffled portion of the array.
+        for (int i = arrLength - 1; i > 0; --i)
+        {
+            const int randomIndex = RandomNum(0, i);
+            Swap(arr[i], arr[randomIndex]);
+        }
+    }
 
-			cout << "Array[" << i << "]: " << KeyArr[i] << endl;
+    // Educational Caesar-shift transformation. This is NOT secure encryption.
+    static std::string Encryption(std::string text)
+    {
+        for (char& c : text)
+            c = static_cast<char>(c + 3);
 
-		}
-	}
+        return text;
+    }
 
-	static	void FillArrayWithRandomNums(int arr[100], int arrLength,int From,int To) {
+    static std::string Decryption(std::string text)
+    {
+        for (char& c : text)
+            c = static_cast<char>(c - 3);
 
-		for (int i = 0; i < arrLength; i++) {
-			arr[i] = RandomNum(From, To);
-		}
-	}
+        return text;
+    }
 
-	static	void PrintRandomArray(int arr[100], int arrLength) {
-		cout << "Array Elements: ";
-
-		for (int i = 0; i < arrLength; i++) {
-			cout << arr[i] << " ";
-		}
-		cout << "\n";
-	}
-
-	static	void FillArrayWithOrderedNumbers(int arr[100], int arrLength) {
-		for (int i = 0; i < arrLength; i++) {
-			arr[i] = i + 1;  // Fill with ordered numbers from 1 to arrLength
-		}
-	}
-
-	static	void PrintArray(int arr[100], int arrLength) {
-		for (int i = 0; i < arrLength; i++) {
-			cout << arr[i] << " ";
-		}
-		cout << endl;
-	}
-
-	static	void Swap(int& A, int& B) {
-
-		int Tempswap = A;
-
-		A = B;
-		B = Tempswap;
-
-	}
-
-	static  void Swap(bool& A, bool& B)
-	{
-		bool Temp;
-
-		Temp = A;
-		A = B;
-		B = Temp;
-	}
-
-	static  void Swap(char& A, char& B)
-	{
-		char Temp;
-
-		Temp = A;
-		A = B;
-		B = Temp;
-	}
-
-	static  void Swap(string& A, string& B)
-	{
-		string Temp;
-
-		Temp = A;
-		A = B;
-		B = Temp;
-	}
-
-	static  void Swap(clsDate& A, clsDate& B)
-	{
-		clsDate::SwapDates(A, B);
-
-	}
-
-	static	void ArrayAfterShuffle(int arr[100], int arrLength) {
-
-		for (int i = 0; i < arrLength; i++) {
-
-			int Index1 = RandomNum(1, arrLength) - 1;
-			int Index2 = RandomNum(1, arrLength) - 1;
-			Swap(arr[Index1], arr[Index2]);
-		}
-
-	}
-
-	static	 string Encryption(string Text) {
-		for (char& c : Text) {
-			c = c + 3; // Simple shift cipher (A → B, z → {)
-		}
-		return Text;
-	}
-
-	static	    string Decryption(string Text) {
-		for (char& c : Text) {
-			c = c - 3; // Revert shift
-		}
-		return Text;
-	}
-
-	static string Tabs(short NumberofTabs) {
-		string t = "";
-		for (int i = 0; i < NumberofTabs; i++) {
-			t += "\t";
-		}
-		return t;
-	}
-
+    static std::string Tabs(short numberOfTabs)
+    {
+        return std::string(numberOfTabs, '\t');
+    }
 };
-
-
-
-
