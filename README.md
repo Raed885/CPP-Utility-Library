@@ -1,73 +1,33 @@
 # C++ Utility Library
 
-A reusable **C++ utility library** built to collect common helper functionality that can be reused across console applications and programming projects.
+A small, reusable C++ utility library built independently to practice reusable abstractions, function overloading, input-independent helpers, arrays, random generation, and date utilities.
 
-> **Status:** Educational project
->
-> The library focuses on reusable programming techniques and learning-oriented utilities. It is not intended to provide production-grade security or cryptographic functionality.
-
-## Overview
-
-The project provides a collection of static utility functions for:
-
-- Random number and character generation
-- Word and key generation
-- Array creation and manipulation
-- Array shuffling
-- Overloaded swap operations
-- Date-related utilities
-- Simple text transformation
-- Console formatting helpers
-
-The project was built independently as a practical exercise in reusable C++ code and separating general-purpose utilities from application-specific logic.
+> Educational project — the text transformation functions are a Caesar-shift demonstration, not real cryptography.
 
 ## Features
 
-### Random Generation
+- Random integers, characters, words, and structured keys
+- Array filling, printing, and Fisher-Yates shuffling
+- Overloaded `Swap()` helpers
+- Date swapping through `clsDate`
+- Simple Caesar-shift transformation for educational purposes
+- Console formatting helpers
 
-Generate:
-
-- Random integers within a range
-- Lowercase characters
-- Uppercase characters
-- Digits
-- Special characters
-- Mixed characters
-- Random words
-- Structured keys
-
-### Array Utilities
-
-- Fill arrays with random values
-- Fill arrays with ordered values
-- Print arrays
-- Shuffle array elements
-
-### Generic Helpers
-
-- Overloaded `Swap()` functions
-- Date swapping
-- Text transformation and reversal
-- Console tab formatting
-
-## Design
-
-The project currently uses a small, header-based structure:
+## Structure
 
 ```text
 CPP-Utility-Library/
-│
-├── MyUtilityLib.h        # Main reusable utility class
-├── clsDate.h             # Date-related support
-├── Utility Library.cpp   # Demonstration program
-├── Utility Library.sln   # Visual Studio solution
-├── Utility Library.vcxproj
-├── Utility Library.vcxproj.filters
+├── MyUtilityLib.h          # Reusable utility class
+├── clsDate.h               # Date support
+├── main.cpp                # Demonstration program
+├── UtilityLibrary.sln      # Visual Studio solution
+├── UtilityLibrary.vcxproj  # Visual Studio project
+├── UtilityLibrary.vcxproj.filters
 ├── .gitignore
 └── README.md
 ```
 
-`MyUtilityLib` contains static helper methods so callers can use the utilities without creating a library object.
+`MyUtilityLib` exposes static methods so the caller does not need to instantiate the utility class.
 
 ## Example
 
@@ -77,79 +37,33 @@ CPP-Utility-Library/
 MyUtilityLib::Srand();
 
 int number = MyUtilityLib::RandomNum(1, 100);
-string key = MyUtilityLib::GenerateKey();
+std::string key = MyUtilityLib::GenerateKey();
 
-cout << number << endl;
-cout << key << endl;
+std::cout << number << '\n';
+std::cout << key << '\n';
 ```
 
-## Example: Random Character Types
+## Design Notes
 
-```cpp
-MyUtilityLib::Srand();
+The library intentionally uses simple C++ constructs because the goal is to practice reusable components and clear interfaces. The current implementation uses raw arrays in several APIs to match the original learning objective.
 
-char lower = MyUtilityLib::GetRandomCharacter(
-    MyUtilityLib::enCharType::SmallChar
-);
+The shuffle implementation uses the Fisher-Yates approach rather than repeatedly selecting arbitrary pairs.
 
-char upper = MyUtilityLib::GetRandomCharacter(
-    MyUtilityLib::enCharType::CapitalChar
-);
-```
+## Important Security Note
 
-## Technologies
+`Encryption()` and `Decryption()` implement a Caesar shift by three characters. This is useful for demonstrating reversible transformations, but it provides no meaningful security and must not be used for passwords, authentication tokens, or sensitive data.
 
-- C++
-- Object-oriented programming
-- Static utility methods
-- Arrays
-- Function overloading
-- Enumerations
-- Standard library facilities
-- Visual Studio
+## Build and Run
 
-## Learning Goals
-
-This project was built to practice:
-
-- Designing reusable functions and classes
-- Reducing duplicated code
-- Function overloading
-- Enumerations for configurable behavior
-- Array manipulation
-- Random data generation
-- Separating reusable utilities from application-specific code
-
-## Important Note About Encryption
-
-The `Encryption()` and `Decryption()` functions implement a simple character-shift transformation for educational purposes only.
-
-They are **not encryption suitable for protecting passwords, credentials, or sensitive data** and should not be used as a security mechanism.
-
-## Running the Demo
-
-### Requirements
+Requirements:
 
 - Windows
-- Visual Studio with C++ development tools
-
-### Steps
+- Visual Studio with the C++ desktop development workload
 
 1. Clone the repository.
-2. Open `Utility Library.sln` in Visual Studio.
+2. Open `UtilityLibrary.sln` in Visual Studio.
 3. Build the solution.
-4. Run the console application to see the utilities in action.
-
-## Reusing the Library
-
-To use the utilities in another C++ project, include the required headers:
-
-```cpp
-#include "MyUtilityLib.h"
-#include "clsDate.h"
-```
-
-Then call the static utility methods directly through `MyUtilityLib`.
+4. Run the console application.
 
 ## Author
 
